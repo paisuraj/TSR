@@ -455,7 +455,7 @@ def reduce_suite(data_file, orig_file, algorithm, out, percentage=1.0):
     elif algorithm == 'random':
         selected_tests = randomize(mapping, percentage) # In this case, percentage is actually number of tests to select randomly
     else:
-        print 'No algorithm with this name found'
+        print ('No algorithm with this name found')
         return
 
     for test in selected_tests:
@@ -469,8 +469,8 @@ args:
 """
 def main(args):
     if len(args) != 4 and len(args) != 5:
-        print 'Please provide 3 arguments: coverage file, original tests file, and algorithm'
-        print 'An optional 4th argument specifies the percentage of coverage desired. Default is 100'
+        print ('Please provide 3 arguments: coverage file, original tests file, and algorithm')
+        print ('An optional 4th argument specifies the percentage of coverage desired. Default is 100')
         return
 
     data_file = args[1]
@@ -483,7 +483,7 @@ def main(args):
         percentage = 1.0
 
     if not algorithm in ['greedy', 'ge', 'gre', 'hgs', 'random']:
-        print 'Not valid algorithm, please use greedy, ge, gre, hgs, or random'
+        print('Not valid algorithm, please use greedy, ge, gre, hgs, or random')
         return
 
     reduce_suite(data_file, orig_file, algorithm, sys.stdout, percentage)
