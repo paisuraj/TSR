@@ -1,0 +1,6 @@
+test_addition.test_add_1
+test_addition.test_add_2
+test_addition_duplicate.test_add_20
+test_addition_duplicate.test_add_10
+test_subtract.test_subtract_1
+test_subtract.test_subtract_2
