@@ -1,5 +1,5 @@
 Tests coverage was successful: (3)
-test_addition.py	1208
+test_addition.py	2835
 test_addition_duplicate.py	1306
 test_subtract.py	1247
 Tests coverage was unsuccessful: (0)

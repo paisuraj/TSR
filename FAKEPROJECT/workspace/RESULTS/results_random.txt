@@ -1,1 +1,1 @@
-test_addition_duplicate.test_add_10
+test_addition.test_add_1
