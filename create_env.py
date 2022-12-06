@@ -8,5 +8,6 @@ os.system('.\env\Scripts\activate')
 
 
 os.system('pip install coverage')
+os.system('pip install mutmut')
 os.system('pip install pytest')
 os.system('pip install -r requirements.txt')
