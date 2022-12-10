@@ -2,7 +2,7 @@ import json
 import os
 
 dir = os.path.dirname(os.path.abspath(__file__))
-print(f'dir is {dir}')
+print(f'The current directory is {dir}')
 
 if not os.path.exists(f'{dir}/workspace'):
     os.mkdir(f'{dir}/workspace')
@@ -31,6 +31,11 @@ if os.path.exists(stats_file_path):
     os.remove(stats_file_path)
 stats_file = open(stats_file_path, 'a')
 
+coveragerc_file = open(f'{dir}/.coveragerc', 'w')
+coveragerc_file.write('[run]' + '\n')
+coveragerc_file.write('dynamic_context = test_function')
+coveragerc_file.close()
+
 for path, currentDirectory, files in os.walk(dir + "/tests"):
     for file in files:
         if file.startswith("test_") and file.endswith(".py"):
@@ -54,22 +59,24 @@ for path, currentDirectory, files in os.walk(dir + "/tests"):
 
                 # create dictionary of tests to entities by looking at the contexts of each file in coverage
                 for file_name in data['files']:
-                    #print(f"{data['files'][file_name]['contexts']} is type: {type(data['files'][file_name]['contexts'])}")
                     for line_num, tests in data['files'][file_name]['contexts'].items():
                         for test in tests:
                             if test != '':
+                                entity_name = f'{file_name}[{line_num}]'
                                 if test not in data_file_dict.keys():
-                                    data_file_dict[test] = [file_name]
-                                if file_name not in data_file_dict[test]:
-                                    data_file_dict[test].append(file_name)
+                                    data_file_dict[test] = [entity_name]
+                                if entity_name not in data_file_dict[test] and 'tests' not in entity_name:
+                                    data_file_dict[test].append(entity_name)
                 cov.close()
             # coverage run unsuccessful
             else:
                 num_tests_skipped += 1
                 tests_skipped.append(file)
+
 # add to ORIG file
 for test in data_file_dict.keys():
     orig_file.write(f'{test}\n')
+
 # write data_file_dict to DATA-FILE
 for test, entities_list in data_file_dict.items():
     data_file.write(f'{test}')
